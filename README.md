@@ -2,6 +2,10 @@
 
 This is a simple Angular 2.0.0-alpha.25 example based on the tutorial from angular.io.
 
+## Demo
+
+You can see the application in action in this [Demo](https://batmanvsuperman.firebaseapp.com).
+
 ## Installation
 
 Install tsc compiler to compile TypeScript:
@@ -29,4 +33,3 @@ $ http-server -c-1
 ```
 *With the option -c-1 you can disable cache.*
 
-You can see the application in action in this [Demo](https://batmanvsuperman.firebaseapp.com).

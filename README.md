@@ -1,4 +1,4 @@
-# angular2-superhero-demo
+# Angular2 Superhero Demo
 
 This is a simple Angular 2.0.0-alpha.25 example based on the tutorial from angular.io.
 

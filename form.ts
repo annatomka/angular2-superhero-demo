@@ -1,3 +1,5 @@
+/// <reference path="typings/angular2/angular2.d.ts" />
+
 import {Component, View,For,If} from 'angular2/angular2';
 import {FirebaseService} from 'service';
 

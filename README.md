@@ -1,4 +1,4 @@
-# Angular2 Superhero Demo
+# Angular 2 Superhero Demo
 
 This is a simple Angular 2.0.0-alpha.25 example with Firebase and Materialize CSS.
 

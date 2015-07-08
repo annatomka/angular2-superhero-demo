@@ -24,18 +24,22 @@ var SuperForm = (function () {
             Materialize.toast("You can't vote without a username!", 4000);
             return;
         }
+        var alreadyVoted = false;
         this.dataRef.once("value", function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key();
                 var childData = childSnapshot.val();
                 if (childData.name == username) {
                     Materialize.toast("You can't vote because you already voted for " + childData.vote + "!", 4000);
+                    alreadyVoted = true;
                     return true;
                 }
             });
         });
-        this.addVote({ name: username, vote: superhero, date: new Date().getTime() });
-        Materialize.toast('You voted for&nbsp;<b> ' + superhero + '</b>. Thanks!', 4000);
+        if (alreadyVoted == false) {
+            this.addVote({ name: username, vote: superhero, date: new Date().getTime() });
+            Materialize.toast('You voted for&nbsp;<b> ' + superhero + '</b>. Thanks!', 4000);
+        }
     };
     SuperForm = __decorate([
         angular2_1.Component({

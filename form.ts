@@ -22,6 +22,11 @@ export class SuperForm {
 
     vote(superhero: string, username: string) {
 
+        if(username == "" || username == undefined) {
+            Materialize.toast("You can't vote without a username!", 4000);
+            return;
+        }
+
         this.dataRef.once("value", function(snapshot) {
             snapshot.forEach(function(childSnapshot){
                 var key = childSnapshot.key();
@@ -33,10 +38,6 @@ export class SuperForm {
             });
         });
 
-        if(username == "" || username == undefined) {
-            Materialize.toast("You can't vote without a username!", 4000);
-            return;
-        }
         this.addVote({name: username, vote: superhero,date: new Date().getTime()});
         Materialize.toast('You voted for&nbsp;<b> '+superhero+'</b>. Thanks!', 4000)
     }

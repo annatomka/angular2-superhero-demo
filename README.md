@@ -1,6 +1,6 @@
-# Angular 2 Superhero Demo
+# AngularJS 2 Example
 
-This is a simple Angular 2.0.0-alpha.25 example with Firebase and Materialize CSS.
+Batman vs Superman - Simple voting app created with AngularJS 2.0.0-alpha.25, Firebase and Materialize CSS.
 
 ## Demo
 

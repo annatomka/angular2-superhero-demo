@@ -21,14 +21,19 @@ var Statistics = (function () {
         this.dataRef.on('value', function (dataSnap) {
             self.updateOnNewVote();
         });
+        $('ul.tabs').tabs();
     }
     Statistics.prototype.updateOnNewVote = function () {
         this.calculateLastVotes();
         this.calculateSummaryVotes();
-        this.drawChart();
+        this.drawCharts();
     };
-    Statistics.prototype.drawChart = function () {
-        new Chartist.Bar('.ct-chart', {
+    Statistics.prototype.drawCharts = function () {
+        this.drawBarChart();
+        this.drawPieChart();
+    };
+    Statistics.prototype.drawBarChart = function () {
+        new Chartist.Bar('.bar-chart', {
             labels: ['Batman', 'Superman'],
             series: [this.voteBatman, this.voteSuperman]
         }, {
@@ -38,6 +43,27 @@ var Statistics = (function () {
                 showGrid: false
             }
         });
+    };
+    Statistics.prototype.drawPieChart = function () {
+        var data = {
+            labels: ['Batman', 'Superman'],
+            series: [{
+                    value: this.voteBatman,
+                    name: 'Batman',
+                    className: 'piechart-batman'
+                }, {
+                    value: this.voteSuperman,
+                    name: 'Superman',
+                    className: 'piechart-superman'
+                }]
+        };
+        var options = {
+            labelInterpolationFnc: function (value, blabla, param) {
+                return value;
+            }
+        };
+        var sum = function (a, b) { return a + b; };
+        new Chartist.Pie('.pie-chart', data, options);
     };
     Statistics.prototype.calculateLastVotes = function () {
         var self = this;
@@ -57,6 +83,7 @@ var Statistics = (function () {
         this.dataRef.orderByChild('vote').equalTo('superman').on('value', function (data) {
             self.voteSuperman = data.numChildren();
         });
+        self.allVotes = self.voteBatman + self.voteSuperman;
     };
     Statistics = __decorate([
         angular2_1.Component({

@@ -13,6 +13,7 @@ export class Statistics {
     dataRef:Firebase;
     voteBatman:number;
     voteSuperman:number;
+    allVotes: number;
     votes:Array<Object>;
 
     constructor() {
@@ -26,15 +27,20 @@ export class Statistics {
             self.updateOnNewVote();
         });
 
+        $('ul.tabs').tabs();
     }
     updateOnNewVote(){
         this.calculateLastVotes();
         this.calculateSummaryVotes();
-        this.drawChart();
+        this.drawCharts();
     }
 
-    drawChart(){
-        new Chartist.Bar('.ct-chart', {
+    drawCharts(){
+        this.drawBarChart();
+        this.drawPieChart();
+    }
+    drawBarChart(){
+        new Chartist.Bar('.bar-chart', {
             labels: ['Batman', 'Superman'],
             series: [this.voteBatman, this.voteSuperman]
         }, {
@@ -44,6 +50,29 @@ export class Statistics {
                 showGrid: false
             }
         });
+    }
+    drawPieChart(){
+        var data = {
+            labels: ['Batman', 'Superman'],
+            series: [{
+                value: this.voteBatman,
+                name: 'Batman',
+                className: 'piechart-batman'
+            }, {
+                value: this.voteSuperman,
+                name: 'Superman',
+                className: 'piechart-superman'
+            }]
+        };
+
+        var options = {
+            labelInterpolationFnc: function(value,blabla,param) {
+                return value
+            }
+        };
+        var sum = function(a, b) { return a + b };
+
+        new Chartist.Pie('.pie-chart', data, options );
     }
 
     calculateLastVotes(){
@@ -66,6 +95,8 @@ export class Statistics {
         this.dataRef.orderByChild('vote').equalTo('superman').on('value',function(data){
             self.voteSuperman = data.numChildren();
         });
+
+        self.allVotes = self.voteBatman + self.voteSuperman;
     }
 
 }

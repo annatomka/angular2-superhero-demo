@@ -10,3 +10,15 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
 .logo{
      margin-top:20px;
 }
+
+g.piechart-superman{
+     fill: #8C271D;
+}
+
+.ct-chart g.piechart-superman .ct-label,.ct-chart g.piechart-batman .ct-label{
+     fill: white;
+}
+
+g.piechart-batman{
+     fill: black;
+}

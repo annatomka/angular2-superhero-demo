@@ -2,10 +2,6 @@
   "name": "angular2-superhero-demo",
   "version": "1.0.0",
   "description": "AngularJS 2 Superhero demo application",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/annatomka/angular2-superhero-demo.git"
@@ -18,5 +14,19 @@
   "bugs": {
     "url": "https://github.com/annatomka/angular2-superhero-demo/issues"
   },
-  "homepage": "https://github.com/annatomka/angular2-superhero-demo#readme"
+  "homepage": "https://github.com/annatomka/angular2-superhero-demo#readme",
+  "dependencies": {
+    "angular2": "2.0.0-alpha.45",
+    "systemjs": "0.19.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "live-server": "^0.8.1",
+    "typescript": "^1.6.2"
+  },
+  "scripts": {
+    "tsc": "tsc -p src -w",
+    "start": "live-server --open=src"
+  }
 }

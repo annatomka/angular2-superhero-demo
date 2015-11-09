@@ -1,0 +1,25 @@
+<div class="card-panel yellow darken-2 center-align white-text" >
+    <h4 class="card-title">Current State</h4>
+    <h6 [hidden]="voteSuperman>=voteBatman"><strong>Batman</strong> is better.</h6>
+    <h6 [hidden]="voteSuperman<=voteBatman"><strong>Superman</strong> is better.</h6>
+</div>
+
+<div class="card">
+    <div class="card-content center-align">
+        <h4 class="grey-text text-darken-3 ">Statistics</h4>
+        <div class="row">
+            There are currently <strong>{{ allVotes }}</strong> votes, <strong>{{ voteBatman }}</strong> votes for Batman and <strong>{{ voteSuperman }}</strong> votes for Superman.
+            </div>
+        <div class="row">
+            <div class="pie-chart ct-chart ct-golden-section"></div>
+            <div class="bar-chart ct-chart ct-golden-section"></div>
+        </div>
+    </div>
+</div>
+
+<ul class="collection with-header" *ng-if="votes && votes.length > 0">
+    <li class="collection-header grey-text text-darken-3"><h4 class="center-align">Last 10 votes</h4></li>
+    <li class="collection-item" *ng-for="#item of votes;#i = index">
+        <div>{{i + 1}}. {{item.name}} <a href="#!" class="secondary-content">{{ item.vote}}</a></div>
+    </li>
+</ul>

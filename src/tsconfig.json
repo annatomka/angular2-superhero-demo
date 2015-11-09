@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "out": "src/app/bundle.js"
+  },
+  "files": [
+    "app/app.ts",
+    "app/footer.ts",
+    "app/form.ts",
+    "app/service.ts",
+    "app/statistics.ts",
+    "../node_modules/angular2/typings/tsd.d.ts"
+  ]
+}

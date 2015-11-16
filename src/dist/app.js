@@ -79,12 +79,13 @@ var SuperForm = (function () {
         this.dataRef.push(vote);
     };
     SuperForm.prototype.vote = function (superhero, username) {
+        var self = this;
         if (username == "" || username == undefined) {
             Materialize.toast("You can't vote without a username!", 4000);
             return;
         }
         var alreadyVoted = false;
-        this.dataRef.once("value", function (snapshot) {
+        self.dataRef.once("value", function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key();
                 var childData = childSnapshot.val();
@@ -94,11 +95,11 @@ var SuperForm = (function () {
                     return true;
                 }
             });
+            if (alreadyVoted == false) {
+                self.addVote({ name: username, vote: superhero, date: new Date().getTime() });
+                Materialize.toast('You voted for&nbsp;<b> ' + superhero + '</b>. Thanks!', 4000);
+            }
         });
-        if (alreadyVoted == false) {
-            this.addVote({ name: username, vote: superhero, date: new Date().getTime() });
-            Materialize.toast('You voted for&nbsp;<b> ' + superhero + '</b>. Thanks!', 4000);
-        }
     };
     SuperForm = __decorate([
         angular2_1.Component({

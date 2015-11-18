@@ -17,7 +17,8 @@
   "homepage": "https://github.com/annatomka/angular2-superhero-demo#readme",
   "dependencies": {
     "angular2": "2.0.0-alpha.45",
-    "systemjs": "0.19.2"
+    "systemjs": "0.19.2",
+    "wiredep": "^2.2.2"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
@@ -26,7 +27,7 @@
     "typescript": "^1.6.2"
   },
   "scripts": {
-    "tsc": "tsc -p src -w",
-    "start": "live-server --open=src"
+    "tsc": "tsc -w",
+    "start": "live-server"
   }
 }

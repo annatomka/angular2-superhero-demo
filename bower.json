@@ -1,0 +1,25 @@
+{
+  "name": "angular2-superhero-demo",
+  "description": "AngularJS 2 Superhero demo application",
+  "main": "",
+  "authors": [
+    "Anna Tomka"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angular2"
+  ],
+  "homepage": "https://github.com/annatomka/angular2-superhero-demo",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-iconfont": "~0.0.2",
+    "Materialize": "materialize#~0.97.3"
+  }
+}

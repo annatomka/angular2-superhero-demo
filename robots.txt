@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: 
+
+Sitemap: https://batmanvsuperman.firebaseapp.com/sitemap.xml
+

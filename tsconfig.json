@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "out": "app/bundle.js"
+    "outFile": "app/bundle.js"
   },
   "files": [
     "app/app.ts",
@@ -16,6 +16,7 @@
     "app/service.ts",
     "app/statistics.ts",
     "app/navigation.ts",
+    "app/datepipe.ts",
     "node_modules/angular2/typings/tsd.d.ts"
   ]
 }

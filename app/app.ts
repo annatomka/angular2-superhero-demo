@@ -1,17 +1,18 @@
-import {Component, View, bootstrap,FORM_DIRECTIVES, NgFor} from 'angular2/angular2';
+import {Component, View, bootstrap,FORM_DIRECTIVES, NgFor,provide} from 'angular2/angular2';
 import {  CanActivate,
-    RouteConfig,
-    ComponentInstruction,
     ROUTER_DIRECTIVES,
-    APP_BASE_HREF,
-    CanReuse,
-    RouteParams,
-    OnReuse ,ROUTER_PROVIDERS,RouterLink, RouterOutlet} from 'angular2/router';
+    ROUTER_PROVIDERS,
+    RouteConfig,
+    Location,
+    LocationStrategy,
+    HashLocationStrategy,
+    RouterLink, RouterOutlet} from 'angular2/router';
 import {Navigation} from './navigation';
 import {SuperForm} from './form';
 import {Statistics} from './statistics';
 import {FooterContent} from './footer';
 import {LatestComponent} from './latest';
+import {AboutComponent} from './about';
 
 @Component({
     selector: 'my-app',
@@ -23,13 +24,14 @@ import {LatestComponent} from './latest';
     {path: '/', component: SuperForm, name: 'Home'},
     {path: '/statistics', component: Statistics, name: 'Statistics'},
     {path: '/latest', component: LatestComponent, name: 'Latest'},
-    {path: '/about', component: Statistics, name: 'About'}
+    {path: '/about', component: AboutComponent, name: 'About'}
 ])
 class MyAppComponent {
     constructor() {
     }
 }
 
-bootstrap(MyAppComponent, [
-    ROUTER_PROVIDERS
+bootstrap(MyAppComponent,  [
+    ROUTER_PROVIDERS,
+    provide(LocationStrategy, {useClass: HashLocationStrategy})
 ]);

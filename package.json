@@ -24,7 +24,8 @@
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "live-server": "^0.8.1",
-    "typescript": "^1.6.2"
+    "typescript": "^1.6.2",
+    "webpack": "^1.12.6"
   },
   "scripts": {
     "tsc": "tsc -w",

@@ -1,7 +1,9 @@
-
 <ul class="collection with-header" *ng-if="votes && votes.length > 0">
     <li class="collection-header grey-text text-darken-3"><h4 class="center-align">Latest votes</h4></li>
     <li class="collection-item" *ng-for="#item of votes;#i = index">
         <div>{{i + 1}}. {{item.name}} <a href="#!" class="secondary-content">{{ item.vote}}</a></div>
+        <div class="comment" *ng-if="item.comment && item.comment != ''">{{ item.comment }}
+        </div>
+        <small class="vote-date">{{ item.date | dateformat }}</small>
     </li>
 </ul>

@@ -1,24 +1,39 @@
+<div class="row latest-vote">
+    <div class="card-panel status-panel center-align white-text" >
+        <h6 class="card-title">Latest vote</h6>
+        <h5 *ng-if="latestVote">{{ latestVote.name }} voted for {{ latestVote.vote }} {{ latestVote.date | dateformat }}.</h5>
+        <h5 *ng-if="latestVote && latestVote.comment"><small>„{{ latestVote.comment }}”</small></h5>
+    </div>
+</div>
 <div class="row">
-    <div class="col s12 m6 offset-m3">
+    <div class="col m6">
         <div class="card">
             <div class="card-image">
-                <img src="img/header.jpeg">
-                <span class="card-title">Vote Form </span>
+                <img class="responsive-img" src="img/header.jpeg">
+                <span class="card-title">Vote form</span>
             </div>
-            <div class="card-content">
-                <h5>Who is better? Vote!</h5>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="username" #username type="text" class="validate">
-                        <label for="username">Your name</label>
-                    </div>
+        </div>
+
+    </div>
+    <div class="card col m6">
+        <div class="card-content">
+            <h5>Who is better: Batman or Superman?</h5>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="username" #username type="text" class="validate">
+                    <label for="username">Your name</label>
                 </div>
-                <div class="row">
-                    <a href="#" (click)="vote('batman',username.value)" class="col s6 black-text text-darken-4"><i
-                            class="mdi-action-thumb-up"></i> Batman</a>
-                    <a href="#" (click)="vote('superman',username.value)" class="col s6 red-text text-darken-1 right-align"><i
-                            class="mdi-action-thumb-up"></i> Superman</a>
+                <div class="input-field col s12">
+                    <textarea id="comment" #comment class="materialize-textarea" maxlength="150"></textarea>
+                    <label for="username">Optional comment</label>
                 </div>
+            </div>
+            <div class="row">
+                <a href="#" (click)="vote('batman',username.value, comment.value)" class="black-button col s4 waves-effect waves-light btn"><i
+                        class="mdi-action-thumb-up"></i> Batman</a>
+                <a href="#" (click)="vote('superman',username.value, comment.value)" class="red-button col s4 offset-s4 waves-effect waves-light btn right-align"><i
+                        class="mdi-action-thumb-up"></i> Superman</a>
             </div>
         </div>
     </div>

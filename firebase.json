@@ -1,6 +1,6 @@
 {
   "firebase": "batmanvsuperman",
-  "public": "src",
+  "public": ".",
   "ignore": [
     "firebase.json",
     "**/.*",

@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var angular2_1 = require('angular2/angular2');
 var router_1 = require('angular2/router');
 var service_1 = require('./service');
+var datepipe_1 = require('./datepipe');
 var LatestComponent = (function () {
     function LatestComponent() {
         var self = this;
@@ -26,9 +27,10 @@ var LatestComponent = (function () {
     }
     LatestComponent = __decorate([
         angular2_1.Component({
-            directives: [router_1.RouterLink],
+            directives: [router_1.RouterLink, angular2_1.CORE_DIRECTIVES],
             componentServices: [service_1.FirebaseService],
-            templateUrl: "template/latest.html"
+            templateUrl: "template/latest.html",
+            pipes: [datepipe_1.DateFormatPipe]
         }), 
         __metadata('design:paramtypes', [])
     ], LatestComponent);

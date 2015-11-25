@@ -2,9 +2,9 @@
     <div class="l8 offset-l2">
 
         <div class="card-panel yellow darken-2 center-align white-text" >
-            <h4 class="card-title">Current State</h4>
-            <h6 [hidden]="voteSuperman>=voteBatman"><strong>Batman</strong> is better.</h6>
-            <h6 [hidden]="voteSuperman<=voteBatman"><strong>Superman</strong> is better.</h6>
+            <h4 [hidden]="voteSuperman>=voteBatman"><strong>Batman</strong> is better.</h4>
+            <h4 [hidden]="voteSuperman<=voteBatman"><strong>Superman</strong> is better.</h4>
+            <h6 class="card-title">Current State</h6>
         </div>
 
         <div class="card">

@@ -1,5 +1,5 @@
 "format register";
-System.register("angular2/src/router/instruction", ["angular2/src/core/facade/collection", "angular2/src/core/facade/exceptions", "angular2/src/core/facade/lang"], true, function(require, exports, module) {
+System.register("angular2/src/router/instruction", ["angular2/src/facade/collection", "angular2/src/facade/exceptions", "angular2/src/facade/lang"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -12,9 +12,9 @@ System.register("angular2/src/router/instruction", ["angular2/src/core/facade/co
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var collection_1 = require("angular2/src/core/facade/collection");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
-  var lang_1 = require("angular2/src/core/facade/lang");
+  var collection_1 = require("angular2/src/facade/collection");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var lang_1 = require("angular2/src/facade/lang");
   var RouteParams = (function() {
     function RouteParams(params) {
       this.params = params;
@@ -65,19 +65,26 @@ System.register("angular2/src/router/instruction", ["angular2/src/core/facade/co
   }
   exports.stringifyInstruction = stringifyInstruction;
   function stringifyInstructionPath(instruction) {
-    return instruction.component.urlPath + stringifyAux(instruction) + stringifyPrimary(instruction.child);
+    return instruction.component.urlPath + stringifyAux(instruction) + stringifyPrimaryPrefixed(instruction.child);
   }
   exports.stringifyInstructionPath = stringifyInstructionPath;
   function stringifyInstructionQuery(instruction) {
     return instruction.component.urlParams.length > 0 ? ('?' + instruction.component.urlParams.join('&')) : '';
   }
   exports.stringifyInstructionQuery = stringifyInstructionQuery;
+  function stringifyPrimaryPrefixed(instruction) {
+    var primary = stringifyPrimary(instruction);
+    if (primary.length > 0) {
+      primary = '/' + primary;
+    }
+    return primary;
+  }
   function stringifyPrimary(instruction) {
     if (lang_1.isBlank(instruction)) {
       return '';
     }
     var params = instruction.component.urlParams.length > 0 ? (';' + instruction.component.urlParams.join(';')) : '';
-    return '/' + instruction.component.urlPath + params + stringifyAux(instruction) + stringifyPrimary(instruction.child);
+    return instruction.component.urlPath + params + stringifyAux(instruction) + stringifyPrimaryPrefixed(instruction.child);
   }
   function stringifyAux(instruction) {
     var routes = [];
@@ -183,7 +190,7 @@ System.register("angular2/src/router/instruction", ["angular2/src/core/facade/co
   return module.exports;
 });
 
-System.register("angular2/src/router/lifecycle_annotations_impl", ["angular2/src/core/facade/lang"], true, function(require, exports, module) {
+System.register("angular2/src/router/lifecycle_annotations_impl", ["angular2/src/facade/lang"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -209,7 +216,7 @@ System.register("angular2/src/router/lifecycle_annotations_impl", ["angular2/src
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
       return Reflect.metadata(k, v);
   };
-  var lang_1 = require("angular2/src/core/facade/lang");
+  var lang_1 = require("angular2/src/facade/lang");
   var RouteLifecycleHook = (function() {
     function RouteLifecycleHook(name) {
       this.name = name;
@@ -269,7 +276,7 @@ System.register("angular2/src/router/location_strategy", [], true, function(requ
   return module.exports;
 });
 
-System.register("angular2/src/router/url_parser", ["angular2/src/core/facade/collection", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions"], true, function(require, exports, module) {
+System.register("angular2/src/router/url_parser", ["angular2/src/facade/collection", "angular2/src/facade/lang", "angular2/src/facade/exceptions"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -282,9 +289,9 @@ System.register("angular2/src/router/url_parser", ["angular2/src/core/facade/col
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var collection_1 = require("angular2/src/core/facade/collection");
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
+  var collection_1 = require("angular2/src/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
   var Url = (function() {
     function Url(path, child, auxiliary, params) {
       if (child === void 0) {
@@ -369,10 +376,10 @@ System.register("angular2/src/router/url_parser", ["angular2/src/core/facade/col
   var UrlParser = (function() {
     function UrlParser() {}
     UrlParser.prototype.peekStartsWith = function(str) {
-      return lang_1.StringWrapper.startsWith(this._remaining, str);
+      return this._remaining.startsWith(str);
     };
     UrlParser.prototype.capture = function(str) {
-      if (!lang_1.StringWrapper.startsWith(this._remaining, str)) {
+      if (!this._remaining.startsWith(str)) {
         throw new exceptions_1.BaseException("Expected \"" + str + "\".");
       }
       this._remaining = this._remaining.substring(str.length);
@@ -501,7 +508,7 @@ System.register("angular2/src/router/url_parser", ["angular2/src/core/facade/col
   return module.exports;
 });
 
-System.register("angular2/src/router/route_config_impl", ["angular2/src/core/facade/lang"], true, function(require, exports, module) {
+System.register("angular2/src/router/route_config_impl", ["angular2/src/facade/lang"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -527,7 +534,7 @@ System.register("angular2/src/router/route_config_impl", ["angular2/src/core/fac
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
       return Reflect.metadata(k, v);
   };
-  var lang_1 = require("angular2/src/core/facade/lang");
+  var lang_1 = require("angular2/src/facade/lang");
   var RouteConfig = (function() {
     function RouteConfig(configs) {
       this.configs = configs;
@@ -540,13 +547,14 @@ System.register("angular2/src/router/route_config_impl", ["angular2/src/core/fac
     function Route(_a) {
       var path = _a.path,
           component = _a.component,
-          as = _a.as,
+          name = _a.name,
           data = _a.data;
-      this.path = path;
-      this.component = component;
-      this.as = as;
+      this.aux = null;
       this.loader = null;
       this.redirectTo = null;
+      this.path = path;
+      this.component = component;
+      this.name = name;
       this.data = data;
     }
     Route = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Object])], Route);
@@ -557,13 +565,14 @@ System.register("angular2/src/router/route_config_impl", ["angular2/src/core/fac
     function AuxRoute(_a) {
       var path = _a.path,
           component = _a.component,
-          as = _a.as;
+          name = _a.name;
       this.data = null;
+      this.aux = null;
       this.loader = null;
       this.redirectTo = null;
       this.path = path;
       this.component = component;
-      this.as = as;
+      this.name = name;
     }
     AuxRoute = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Object])], AuxRoute);
     return AuxRoute;
@@ -573,11 +582,12 @@ System.register("angular2/src/router/route_config_impl", ["angular2/src/core/fac
     function AsyncRoute(_a) {
       var path = _a.path,
           loader = _a.loader,
-          as = _a.as,
+          name = _a.name,
           data = _a.data;
+      this.aux = null;
       this.path = path;
       this.loader = loader;
-      this.as = as;
+      this.name = name;
       this.data = data;
     }
     AsyncRoute = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Object])], AsyncRoute);
@@ -588,9 +598,10 @@ System.register("angular2/src/router/route_config_impl", ["angular2/src/core/fac
     function Redirect(_a) {
       var path = _a.path,
           redirectTo = _a.redirectTo;
-      this.as = null;
+      this.name = null;
       this.loader = null;
       this.data = null;
+      this.aux = null;
       this.path = path;
       this.redirectTo = redirectTo;
     }
@@ -602,11 +613,11 @@ System.register("angular2/src/router/route_config_impl", ["angular2/src/core/fac
   return module.exports;
 });
 
-System.register("angular2/src/router/async_route_handler", ["angular2/src/core/facade/lang"], true, function(require, exports, module) {
+System.register("angular2/src/router/async_route_handler", ["angular2/src/facade/lang"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
-  var lang_1 = require("angular2/src/core/facade/lang");
+  var lang_1 = require("angular2/src/facade/lang");
   var AsyncRouteHandler = (function() {
     function AsyncRouteHandler(_loader, data) {
       this._loader = _loader;
@@ -630,11 +641,11 @@ System.register("angular2/src/router/async_route_handler", ["angular2/src/core/f
   return module.exports;
 });
 
-System.register("angular2/src/router/sync_route_handler", ["angular2/src/core/facade/async"], true, function(require, exports, module) {
+System.register("angular2/src/router/sync_route_handler", ["angular2/src/facade/async"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
-  var async_1 = require("angular2/src/core/facade/async");
+  var async_1 = require("angular2/src/facade/async");
   var SyncRouteHandler = (function() {
     function SyncRouteHandler(componentType, data) {
       this.componentType = componentType;
@@ -797,6 +808,7 @@ System.register("angular2/src/router/path_location_strategy", ["angular2/src/cor
     }
     PathLocationStrategy.prototype.onPopState = function(fn) {
       dom_adapter_1.DOM.getGlobalEventTarget('window').addEventListener('popstate', fn, false);
+      dom_adapter_1.DOM.getGlobalEventTarget('window').addEventListener('hashchange', fn, false);
     };
     PathLocationStrategy.prototype.getBaseHref = function() {
       return this._baseHref;
@@ -832,7 +844,7 @@ System.register("angular2/src/router/route_definition", [], true, function(requi
   return module.exports;
 });
 
-System.register("angular2/src/router/location", ["angular2/src/router/location_strategy", "angular2/src/core/facade/lang", "angular2/src/core/facade/async", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions", "angular2/angular2"], true, function(require, exports, module) {
+System.register("angular2/src/router/location", ["angular2/src/router/location_strategy", "angular2/src/facade/lang", "angular2/src/facade/async", "angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/angular2"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -864,10 +876,10 @@ System.register("angular2/src/router/location", ["angular2/src/router/location_s
     };
   };
   var location_strategy_1 = require("angular2/src/router/location_strategy");
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var async_1 = require("angular2/src/core/facade/async");
-  var lang_2 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
+  var lang_1 = require("angular2/src/facade/lang");
+  var async_1 = require("angular2/src/facade/async");
+  var lang_2 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
   var angular2_1 = require("angular2/angular2");
   exports.APP_BASE_HREF = lang_1.CONST_EXPR(new angular2_1.OpaqueToken('appBaseHref'));
   var Location = (function() {
@@ -952,13 +964,13 @@ System.register("angular2/src/router/location", ["angular2/src/router/location_s
   return module.exports;
 });
 
-System.register("angular2/src/router/path_recognizer", ["angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions", "angular2/src/core/facade/collection", "angular2/src/router/url_parser", "angular2/src/router/instruction"], true, function(require, exports, module) {
+System.register("angular2/src/router/path_recognizer", ["angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/facade/collection", "angular2/src/router/url_parser", "angular2/src/router/instruction"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
-  var collection_1 = require("angular2/src/core/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var collection_1 = require("angular2/src/facade/collection");
   var url_parser_1 = require("angular2/src/router/url_parser");
   var instruction_1 = require("angular2/src/router/instruction");
   var TouchMap = (function() {
@@ -1050,8 +1062,8 @@ System.register("angular2/src/router/path_recognizer", ["angular2/src/core/facad
   var paramMatcher = /^:([^\/]+)$/g;
   var wildcardMatcher = /^\*([^\/]+)$/g;
   function parsePathString(route) {
-    if (lang_1.StringWrapper.startsWith(route, "/")) {
-      route = lang_1.StringWrapper.substring(route, 1);
+    if (route.startsWith("/")) {
+      route = route.substring(1);
     }
     var segments = splitBySlash(route);
     var results = [];
@@ -1211,13 +1223,13 @@ System.register("angular2/src/router/path_recognizer", ["angular2/src/core/facad
   return module.exports;
 });
 
-System.register("angular2/src/router/route_config_nomalizer", ["angular2/src/router/route_config_decorator", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions"], true, function(require, exports, module) {
+System.register("angular2/src/router/route_config_nomalizer", ["angular2/src/router/route_config_decorator", "angular2/src/facade/lang", "angular2/src/facade/exceptions"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
   var route_config_decorator_1 = require("angular2/src/router/route_config_decorator");
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
   function normalizeRouteConfig(config) {
     if (config instanceof route_config_decorator_1.Route || config instanceof route_config_decorator_1.Redirect || config instanceof route_config_decorator_1.AsyncRoute || config instanceof route_config_decorator_1.AuxRoute) {
       return config;
@@ -1225,11 +1237,24 @@ System.register("angular2/src/router/route_config_nomalizer", ["angular2/src/rou
     if ((+!!config.component) + (+!!config.redirectTo) + (+!!config.loader) != 1) {
       throw new exceptions_1.BaseException("Route config should contain exactly one \"component\", \"loader\", or \"redirectTo\" property.");
     }
+    if (config.as && config.name) {
+      throw new exceptions_1.BaseException("Route config should contain exactly one \"as\" or \"name\" property.");
+    }
+    if (config.as) {
+      config.name = config.as;
+    }
     if (config.loader) {
       return new route_config_decorator_1.AsyncRoute({
         path: config.path,
         loader: config.loader,
-        as: config.as
+        name: config.name
+      });
+    }
+    if (config.aux) {
+      return new route_config_decorator_1.AuxRoute({
+        path: config.aux,
+        component: config.component,
+        name: config.name
       });
     }
     if (config.component) {
@@ -1239,13 +1264,13 @@ System.register("angular2/src/router/route_config_nomalizer", ["angular2/src/rou
           return new route_config_decorator_1.Route({
             path: config.path,
             component: componentDefinitionObject.constructor,
-            as: config.as
+            name: config.name
           });
         } else if (componentDefinitionObject.type == 'loader') {
           return new route_config_decorator_1.AsyncRoute({
             path: config.path,
             loader: componentDefinitionObject.loader,
-            as: config.as
+            name: config.name
           });
         } else {
           throw new exceptions_1.BaseException("Invalid component type \"" + componentDefinitionObject.type + "\". Valid types are \"constructor\" and \"loader\".");
@@ -1272,11 +1297,11 @@ System.register("angular2/src/router/route_config_nomalizer", ["angular2/src/rou
   return module.exports;
 });
 
-System.register("angular2/src/router/route_lifecycle_reflector", ["angular2/src/core/facade/lang", "angular2/src/router/lifecycle_annotations_impl", "angular2/src/core/reflection/reflection"], true, function(require, exports, module) {
+System.register("angular2/src/router/route_lifecycle_reflector", ["angular2/src/facade/lang", "angular2/src/router/lifecycle_annotations_impl", "angular2/src/core/reflection/reflection"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
-  var lang_1 = require("angular2/src/core/facade/lang");
+  var lang_1 = require("angular2/src/facade/lang");
   var lifecycle_annotations_impl_1 = require("angular2/src/router/lifecycle_annotations_impl");
   var reflection_1 = require("angular2/src/core/reflection/reflection");
   function hasLifecycleHook(e, type) {
@@ -1300,7 +1325,7 @@ System.register("angular2/src/router/route_lifecycle_reflector", ["angular2/src/
   return module.exports;
 });
 
-System.register("angular2/src/router/router_link", ["angular2/src/core/metadata", "angular2/src/router/router", "angular2/src/router/location", "angular2/src/router/instruction"], true, function(require, exports, module) {
+System.register("angular2/src/router/router_link", ["angular2/angular2", "angular2/src/facade/lang", "angular2/src/router/router", "angular2/src/router/location", "angular2/src/router/instruction"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -1326,7 +1351,8 @@ System.register("angular2/src/router/router_link", ["angular2/src/core/metadata"
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
       return Reflect.metadata(k, v);
   };
-  var metadata_1 = require("angular2/src/core/metadata");
+  var angular2_1 = require("angular2/angular2");
+  var lang_1 = require("angular2/src/facade/lang");
   var router_1 = require("angular2/src/router/router");
   var location_1 = require("angular2/src/router/location");
   var instruction_1 = require("angular2/src/router/instruction");
@@ -1353,12 +1379,15 @@ System.register("angular2/src/router/router_link", ["angular2/src/core/metadata"
       configurable: true
     });
     RouterLink.prototype.onClick = function() {
-      this._router.navigateByInstruction(this._navigationInstruction);
-      return false;
+      if (!lang_1.isString(this.target) || this.target == '_self') {
+        this._router.navigateByInstruction(this._navigationInstruction);
+        return false;
+      }
+      return true;
     };
-    RouterLink = __decorate([metadata_1.Directive({
+    RouterLink = __decorate([angular2_1.Directive({
       selector: '[router-link]',
-      inputs: ['routeParams: routerLink'],
+      inputs: ['routeParams: routerLink', 'target: target'],
       host: {
         '(click)': 'onClick()',
         '[attr.href]': 'visibleHref',
@@ -1372,13 +1401,13 @@ System.register("angular2/src/router/router_link", ["angular2/src/core/metadata"
   return module.exports;
 });
 
-System.register("angular2/src/router/route_recognizer", ["angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions", "angular2/src/core/facade/collection", "angular2/src/router/path_recognizer", "angular2/src/router/route_config_impl", "angular2/src/router/async_route_handler", "angular2/src/router/sync_route_handler", "angular2/src/router/url_parser"], true, function(require, exports, module) {
+System.register("angular2/src/router/route_recognizer", ["angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/facade/collection", "angular2/src/router/path_recognizer", "angular2/src/router/route_config_impl", "angular2/src/router/async_route_handler", "angular2/src/router/sync_route_handler", "angular2/src/router/url_parser"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
-  var collection_1 = require("angular2/src/core/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var collection_1 = require("angular2/src/facade/collection");
   var path_recognizer_1 = require("angular2/src/router/path_recognizer");
   var route_config_impl_1 = require("angular2/src/router/route_config_impl");
   var async_route_handler_1 = require("angular2/src/router/async_route_handler");
@@ -1393,13 +1422,13 @@ System.register("angular2/src/router/route_recognizer", ["angular2/src/core/faca
     }
     RouteRecognizer.prototype.config = function(config) {
       var handler;
-      if (lang_1.isPresent(config.as) && config.as[0].toUpperCase() != config.as[0]) {
-        var suggestedAlias = config.as[0].toUpperCase() + config.as.substring(1);
-        throw new exceptions_1.BaseException("Route '" + config.path + "' with alias '" + config.as + "' does not begin with an uppercase letter. Route aliases should be CamelCase like '" + suggestedAlias + "'.");
+      if (lang_1.isPresent(config.name) && config.name[0].toUpperCase() != config.name[0]) {
+        var suggestedName = config.name[0].toUpperCase() + config.name.substring(1);
+        throw new exceptions_1.BaseException("Route \"" + config.path + "\" with name \"" + config.name + "\" does not begin with an uppercase letter. Route names should be CamelCase like \"" + suggestedName + "\".");
       }
       if (config instanceof route_config_impl_1.AuxRoute) {
         handler = new sync_route_handler_1.SyncRouteHandler(config.component, config.data);
-        var path = lang_1.StringWrapper.startsWith(config.path, '/') ? config.path.substring(1) : config.path;
+        var path = config.path.startsWith('/') ? config.path.substring(1) : config.path;
         var recognizer = new path_recognizer_1.PathRecognizer(config.path, handler);
         this.auxRoutes.set(path, recognizer);
         return recognizer.terminal;
@@ -1420,8 +1449,8 @@ System.register("angular2/src/router/route_recognizer", ["angular2/src/core/faca
         }
       });
       this.matchers.push(recognizer);
-      if (lang_1.isPresent(config.as)) {
-        this.names.set(config.as, recognizer);
+      if (lang_1.isPresent(config.name)) {
+        this.names.set(config.name, recognizer);
       }
       return recognizer.terminal;
     };
@@ -1470,11 +1499,11 @@ System.register("angular2/src/router/route_recognizer", ["angular2/src/core/faca
     function Redirector(path, redirectTo) {
       this.segments = [];
       this.toSegments = [];
-      if (lang_1.StringWrapper.startsWith(path, '/')) {
+      if (path.startsWith('/')) {
         path = path.substring(1);
       }
       this.segments = path.split('/');
-      if (lang_1.StringWrapper.startsWith(redirectTo, '/')) {
+      if (redirectTo.startsWith('/')) {
         redirectTo = redirectTo.substring(1);
       }
       this.toSegments = redirectTo.split('/');
@@ -1503,7 +1532,7 @@ System.register("angular2/src/router/route_recognizer", ["angular2/src/core/faca
   return module.exports;
 });
 
-System.register("angular2/src/router/route_registry", ["angular2/src/router/route_recognizer", "angular2/src/router/instruction", "angular2/src/core/facade/collection", "angular2/src/core/facade/async", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions", "angular2/src/router/route_config_impl", "angular2/src/core/reflection/reflection", "angular2/angular2", "angular2/src/router/route_config_nomalizer", "angular2/src/router/url_parser"], true, function(require, exports, module) {
+System.register("angular2/src/router/route_registry", ["angular2/src/router/route_recognizer", "angular2/src/router/instruction", "angular2/src/facade/collection", "angular2/src/facade/async", "angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/router/route_config_impl", "angular2/src/core/reflection/reflection", "angular2/angular2", "angular2/src/router/route_config_nomalizer", "angular2/src/router/url_parser"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -1531,10 +1560,10 @@ System.register("angular2/src/router/route_registry", ["angular2/src/router/rout
   };
   var route_recognizer_1 = require("angular2/src/router/route_recognizer");
   var instruction_1 = require("angular2/src/router/instruction");
-  var collection_1 = require("angular2/src/core/facade/collection");
-  var async_1 = require("angular2/src/core/facade/async");
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
+  var collection_1 = require("angular2/src/facade/collection");
+  var async_1 = require("angular2/src/facade/async");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
   var route_config_impl_1 = require("angular2/src/router/route_config_impl");
   var reflection_1 = require("angular2/src/core/reflection/reflection");
   var angular2_1 = require("angular2/angular2");
@@ -1767,7 +1796,7 @@ System.register("angular2/src/router/route_registry", ["angular2/src/router/rout
   return module.exports;
 });
 
-System.register("angular2/src/router/router", ["angular2/src/core/facade/async", "angular2/src/core/facade/collection", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions", "angular2/src/router/instruction", "angular2/src/router/route_lifecycle_reflector"], true, function(require, exports, module) {
+System.register("angular2/src/router/router", ["angular2/src/facade/async", "angular2/src/facade/collection", "angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/router/instruction", "angular2/src/router/route_lifecycle_reflector"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -1780,10 +1809,10 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
-  var async_1 = require("angular2/src/core/facade/async");
-  var collection_1 = require("angular2/src/core/facade/collection");
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
+  var async_1 = require("angular2/src/facade/async");
+  var collection_1 = require("angular2/src/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
   var instruction_1 = require("angular2/src/router/instruction");
   var route_lifecycle_reflector_1 = require("angular2/src/router/route_lifecycle_reflector");
   var _resolveToTrue = async_1.PromiseWrapper.resolve(true);
@@ -1996,7 +2025,9 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
       }
       var promises = [];
       this._auxRouters.forEach(function(router, name) {
-        promises.push(router.commit(instruction.auxInstruction[name]));
+        if (lang_1.isPresent(instruction.auxInstruction[name])) {
+          promises.push(router.commit(instruction.auxInstruction[name]));
+        }
       });
       return next.then(function(_) {
         return async_1.PromiseWrapper.all(promises);
@@ -2150,11 +2181,11 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
     };
     return ChildRouter;
   })(Router);
-  var SLASH = new RegExp('/');
   function splitAndFlattenLinkParams(linkParams) {
-    return collection_1.ListWrapper.reduce(linkParams, function(accumulation, item) {
+    return linkParams.reduce(function(accumulation, item) {
       if (lang_1.isString(item)) {
-        return accumulation.concat(lang_1.StringWrapper.split(item, SLASH));
+        var strItem = item;
+        return accumulation.concat(strItem.split('/'));
       }
       accumulation.push(item);
       return accumulation;
@@ -2183,7 +2214,7 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
   return module.exports;
 });
 
-System.register("angular2/src/router/router_outlet", ["angular2/src/core/facade/async", "angular2/src/core/facade/collection", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions", "angular2/angular2", "angular2/src/router/router", "angular2/src/router/instruction", "angular2/src/router/lifecycle_annotations", "angular2/src/router/route_lifecycle_reflector"], true, function(require, exports, module) {
+System.register("angular2/src/router/router_outlet", ["angular2/src/facade/async", "angular2/src/facade/collection", "angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/angular2", "angular2/src/router/router", "angular2/src/router/instruction", "angular2/src/router/lifecycle_annotations", "angular2/src/router/route_lifecycle_reflector"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -2214,10 +2245,10 @@ System.register("angular2/src/router/router_outlet", ["angular2/src/core/facade/
       decorator(target, key, paramIndex);
     };
   };
-  var async_1 = require("angular2/src/core/facade/async");
-  var collection_1 = require("angular2/src/core/facade/collection");
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
+  var async_1 = require("angular2/src/facade/async");
+  var collection_1 = require("angular2/src/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
   var angular2_1 = require("angular2/angular2");
   var routerMod = require("angular2/src/router/router");
   var instruction_1 = require("angular2/src/router/instruction");
@@ -2302,7 +2333,7 @@ System.register("angular2/src/router/router_outlet", ["angular2/src/core/facade/
   return module.exports;
 });
 
-System.register("angular2/router", ["angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/instruction", "angular2/src/router/route_registry", "angular2/src/router/location_strategy", "angular2/src/router/hash_location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/location", "angular2/src/router/route_config_decorator", "angular2/src/router/route_definition", "angular2/src/router/lifecycle_annotations", "angular2/src/router/instruction", "angular2/angular2", "angular2/src/router/location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/route_registry", "angular2/src/router/location", "angular2/angular2", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions"], true, function(require, exports, module) {
+System.register("angular2/router", ["angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/instruction", "angular2/src/router/route_registry", "angular2/src/router/location_strategy", "angular2/src/router/hash_location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/location", "angular2/src/router/route_config_decorator", "angular2/src/router/route_definition", "angular2/src/router/lifecycle_annotations", "angular2/src/router/instruction", "angular2/angular2", "angular2/src/router/location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/route_registry", "angular2/src/router/location", "angular2/angular2", "angular2/src/facade/lang", "angular2/src/facade/exceptions"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -2348,8 +2379,8 @@ System.register("angular2/router", ["angular2/src/router/router", "angular2/src/
   var route_registry_2 = require("angular2/src/router/route_registry");
   var location_2 = require("angular2/src/router/location");
   var angular2_2 = require("angular2/angular2");
-  var lang_1 = require("angular2/src/core/facade/lang");
-  var exceptions_1 = require("angular2/src/core/facade/exceptions");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
   exports.ROUTER_PRIMARY_COMPONENT = lang_1.CONST_EXPR(new angular2_2.OpaqueToken('RouterPrimaryComponent'));
   exports.ROUTER_DIRECTIVES = lang_1.CONST_EXPR([router_outlet_2.RouterOutlet, router_link_2.RouterLink]);
   exports.ROUTER_PROVIDERS = lang_1.CONST_EXPR([route_registry_2.RouteRegistry, lang_1.CONST_EXPR(new angular2_2.Provider(location_strategy_2.LocationStrategy, {useClass: path_location_strategy_2.PathLocationStrategy})), location_2.Location, lang_1.CONST_EXPR(new angular2_2.Provider(router_2.Router, {
@@ -2377,4 +2408,4 @@ System.register("angular2/router", ["angular2/src/router/router", "angular2/src/
   return module.exports;
 });
 
-//# sourceMappingURL=router.dev.js.map
+//# sourceMappingURLDisabled=router.dev.js.map

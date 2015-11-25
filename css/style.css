@@ -19,8 +19,30 @@ input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly
      box-shadow: 0 1px 0 0 #616161 !important;
 }
 
-.logo{
-     margin-top:20px;
+a.logo{
+     padding-left: 20px;
+     display: block;
+     text-decoration: none;
+     color: #F44336;
+}
+
+a.logo img{
+     height: 33px;
+     float: left;
+     margin-right: 10px;
+     margin-top: 4px;;
+}
+
+a.logo h3{
+     font-weight: 300;font-size: 20px;
+}
+
+a.logo h3 small{
+     color: #656565;font-weight: 100;
+}
+
+.main-menu{
+     top: 20px;
 }
 
 g.piechart-superman{
@@ -35,8 +57,50 @@ g.piechart-batman{
      fill: black;
 }
 
+.comment{
+     font-weight:300;
+     color: grey;
+     padding-left: 15px;
+}
+
+small.vote-date{
+     padding-left:15px;
+     color: #F48B36;
+}
+
+.red-button{
+     background: #F44336 !important;
+     color: white !important;
+}
+
+.black-button{
+     background: #424242 !important;
+     color: white !important;
+}
+
+.latest-vote h5{
+     font-weight: 300;
+}
+
+.latest-vote h5 small {
+     font-style: italic;
+}
+
+.fixed-action-btn.horizontal ul {
+     text-align: right !important;
+     right: 64px !important;
+     top: 0 !important;
+     height: 0 !important;
+     left: initial !important;
+     width: 500px !important;
+}
+
 @media only screen and (min-width: 601px){
      .row .col.offset-m3 {
           margin-left: 25% !important;
      }
+}
+
+.status-panel{
+     background: #4285f4 !important;
 }

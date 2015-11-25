@@ -34,14 +34,6 @@ export class Statistics {
             self.voteSuperman = data.numChildren();
             self.updateValuesAndDraw(data);
         });
-
-        //this.dataRef.orderByChild("date").limitToLast(10).on('value',function(data){
-        //    self.votes = [];
-        //    data.forEach(function(childSnapshot) {
-        //        var childData = childSnapshot.val();
-        //        self.votes.unshift(childData);
-        //    });
-        //});
     }
     updateValuesAndDraw(data){
         this.allVotes = this.voteBatman + this.voteSuperman;

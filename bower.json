@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "material-design-iconfont": "~0.0.2",
-    "Materialize": "materialize#~0.97.3"
+    "Materialize": "materialize#~0.97.3",
+    "moment": "momentjs#~2.10.6"
   }
 }

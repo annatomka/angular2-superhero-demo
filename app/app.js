@@ -16,6 +16,7 @@ var form_1 = require('./form');
 var statistics_1 = require('./statistics');
 var footer_1 = require('./footer');
 var latest_1 = require('./latest');
+var about_1 = require('./about');
 var MyAppComponent = (function () {
     function MyAppComponent() {
     }
@@ -29,13 +30,14 @@ var MyAppComponent = (function () {
             { path: '/', component: form_1.SuperForm, name: 'Home' },
             { path: '/statistics', component: statistics_1.Statistics, name: 'Statistics' },
             { path: '/latest', component: latest_1.LatestComponent, name: 'Latest' },
-            { path: '/about', component: statistics_1.Statistics, name: 'About' }
+            { path: '/about', component: about_1.AboutComponent, name: 'About' }
         ]), 
         __metadata('design:paramtypes', [])
     ], MyAppComponent);
     return MyAppComponent;
 })();
 angular2_1.bootstrap(MyAppComponent, [
-    router_1.ROUTER_PROVIDERS
+    router_1.ROUTER_PROVIDERS,
+    angular2_1.provide(router_1.LocationStrategy, { useClass: router_1.HashLocationStrategy })
 ]);
 //# sourceMappingURL=app.js.map

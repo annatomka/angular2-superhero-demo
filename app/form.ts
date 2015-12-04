@@ -1,5 +1,6 @@
 import {Component, View, CORE_DIRECTIVES} from 'angular2/angular2';
 import {FirebaseService} from './service';
+import {AdsenseComponent} from './ad';
 import { ROUTER_DIRECTIVES,
     ROUTER_PROVIDERS,
     RouteConfig,RouterLink,
@@ -9,7 +10,7 @@ import {DateFormatPipe} from './datepipe';
 @Component({
     selector: 'super-form',
     templateUrl: "template/form.html",
-    directives: [RouterLink],
+    directives: [RouterLink, AdsenseComponent],
     componentServices: [FirebaseService,ROUTER_DIRECTIVES,CORE_DIRECTIVES],
     pipes: [DateFormatPipe]
 })
@@ -18,7 +19,6 @@ export class SuperForm {
     latestVote: any;
 
     constructor(location: Location) {
-            (adsbygoogle = window.adsbygoogle || []).push({});
         var self = this;
         this.dataRef = new FirebaseService().dataRef;
         this.location = location;

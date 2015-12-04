@@ -68,6 +68,64 @@ var AboutComponent = (function () {
 })();
 exports.AboutComponent = AboutComponent;
 //# sourceMappingURL=about.js.map
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+    switch (arguments.length) {
+        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+    }
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var angular2_1 = require('angular2/angular2');
+var adservice_1 = require('./adservice');
+var AdsenseComponent = (function () {
+    function AdsenseComponent() {
+        if (!adservice_1.AdService.isLoaded) {
+            var s = document.createElement('script');
+            s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+            document.body.appendChild(s);
+            adservice_1.AdService.isLoaded = true;
+        }
+        try {
+            if (!window.adsbygoogle) {
+                window.adsbygoogle = [];
+            }
+            window.adsbygoogle.push({});
+        }
+        catch (e) {
+            console.error(e); //TODO:
+        }
+    }
+    __decorate([
+        angular2_1.Input(), 
+        __metadata('design:type', String)
+    ], AdsenseComponent.prototype, "client");
+    __decorate([
+        angular2_1.Input(), 
+        __metadata('design:type', String)
+    ], AdsenseComponent.prototype, "slot");
+    AdsenseComponent = __decorate([
+        angular2_1.Component({
+            selector: 'adsense-component',
+            template: '<div><ins class="adsbygoogle" [attr.data-ad-client]="client" [attr.data-ad-slot]="slot" style="display:block;width: 100%;" data-ad-format="auto"></ins></div>'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], AdsenseComponent);
+    return AdsenseComponent;
+})();
+exports.AdsenseComponent = AdsenseComponent;
+//# sourceMappingURL=ad.js.map
+var AdService = (function () {
+    function AdService() {
+        this.isLoaded = false;
+    }
+    return AdService;
+})();
+exports.AdService = AdService;
+//# sourceMappingURL=adservice.js.map
 //# sourceMappingURL=bundle.js.map
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
@@ -138,11 +196,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var service_1 = require('./service');
+var ad_1 = require('./ad');
 var router_1 = require('angular2/router');
 var datepipe_1 = require('./datepipe');
 var SuperForm = (function () {
     function SuperForm(location) {
-        (adsbygoogle = window.adsbygoogle || []).push({});
         var self = this;
         this.dataRef = new service_1.FirebaseService().dataRef;
         this.location = location;
@@ -194,7 +252,7 @@ var SuperForm = (function () {
         angular2_1.Component({
             selector: 'super-form',
             templateUrl: "template/form.html",
-            directives: [router_1.RouterLink],
+            directives: [router_1.RouterLink, ad_1.AdsenseComponent],
             componentServices: [service_1.FirebaseService, router_1.ROUTER_DIRECTIVES, angular2_1.CORE_DIRECTIVES],
             pipes: [datepipe_1.DateFormatPipe]
         }), 
@@ -298,6 +356,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var angular2_1 = require('angular2/angular2');
 var service_1 = require('./service');
 var latest_1 = require('./latest');
+var ad_1 = require('./ad');
 var Statistics = (function () {
     function Statistics() {
         this.dataRef = new service_1.FirebaseService().dataRef;
@@ -325,7 +384,7 @@ var Statistics = (function () {
         this.resultText = (this.voteBatman > this.voteSuperman ? "Batman" : "Superman") + " is better right now.";
     };
     Statistics.prototype.generateShareText = function () {
-        this.shareText = 'https://twitter.com/intent/tweet?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better? https://batmanvsuperman.firebaseapp.com';
+        this.shareText = 'http://twitter.com/share?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better?' + '&url=' + window.location.origin;
     };
     Statistics.prototype.updateValuesAndDraw = function (data) {
         this.allVotes = this.voteBatman + this.voteSuperman;
@@ -372,7 +431,7 @@ var Statistics = (function () {
         }),
         angular2_1.View({
             templateUrl: "template/statistics.html",
-            directives: [angular2_1.NgFor, angular2_1.NgIf, latest_1.LatestComponent]
+            directives: [angular2_1.NgFor, angular2_1.NgIf, latest_1.LatestComponent, ad_1.AdsenseComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], Statistics);

@@ -1,6 +1,7 @@
 import {Component, View,NgFor,NgIf} from 'angular2/angular2';
 import {FirebaseService} from './service';
 import {LatestComponent} from './latest';
+import {AdsenseComponent} from './ad';
 
 @Component({
     selector: 'statistics',
@@ -8,7 +9,7 @@ import {LatestComponent} from './latest';
 })
 @View({
     templateUrl: "template/statistics.html",
-    directives: [NgFor,NgIf,LatestComponent]
+    directives: [NgFor,NgIf,LatestComponent,AdsenseComponent]
 })
 export class Statistics {
     dataRef:Firebase;

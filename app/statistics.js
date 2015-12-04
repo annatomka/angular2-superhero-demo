@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var angular2_1 = require('angular2/angular2');
 var service_1 = require('./service');
 var latest_1 = require('./latest');
+var ad_1 = require('./ad');
 var Statistics = (function () {
     function Statistics() {
         this.dataRef = new service_1.FirebaseService().dataRef;
@@ -86,7 +87,7 @@ var Statistics = (function () {
         }),
         angular2_1.View({
             templateUrl: "template/statistics.html",
-            directives: [angular2_1.NgFor, angular2_1.NgIf, latest_1.LatestComponent]
+            directives: [angular2_1.NgFor, angular2_1.NgIf, latest_1.LatestComponent, ad_1.AdsenseComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], Statistics);

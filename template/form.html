@@ -1,40 +1,56 @@
-<div class="row latest-vote">
-    <div class="card-panel status-panel center-align white-text" >
-        <h6 class="card-title">Latest vote</h6>
-        <h5 *ng-if="latestVote">{{ latestVote.name }} voted for {{ latestVote.vote }} {{ latestVote.date | dateformat }}.</h5>
-        <h5 *ng-if="latestVote && latestVote.comment"><small>„{{ latestVote.comment }}”</small></h5>
-    </div>
-</div>
 <div class="row">
-    <div class="col m6">
+    <div class="col s12 m6">
         <div class="card">
             <div class="card-image">
-                <img class="responsive-img" src="img/header.jpeg">
+                <img src="img/header.jpeg">
                 <span class="card-title">Vote form</span>
             </div>
-        </div>
+            <div class="card-content">
+                <h5>Who is better: Batman or Superman?</h5>
 
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="username" #username type="text" class="validate">
+                        <label for="username">Your name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <textarea id="comment" #comment class="materialize-textarea" maxlength="150"></textarea>
+                        <label for="username">Optional comment</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <a href="#" (click)="vote('batman',username.value, comment.value)"
+                       class="black-button col s4 waves-effect waves-light btn"><i
+                            class="mdi-action-thumb-up"></i> Batman</a>
+                    <a href="#" (click)="vote('superman',username.value, comment.value)"
+                       class="red-button col s4 offset-s4 waves-effect waves-light btn right-align"><i
+                            class="mdi-action-thumb-up"></i> Superman</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card col m6">
-        <div class="card-content">
-            <h5>Who is better: Batman or Superman?</h5>
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="username" #username type="text" class="validate">
-                    <label for="username">Your name</label>
-                </div>
-                <div class="input-field col s12">
-                    <textarea id="comment" #comment class="materialize-textarea" maxlength="150"></textarea>
-                    <label for="username">Optional comment</label>
-                </div>
-            </div>
-            <div class="row">
-                <a href="#" (click)="vote('batman',username.value, comment.value)" class="black-button col s4 waves-effect waves-light btn"><i
-                        class="mdi-action-thumb-up"></i> Batman</a>
-                <a href="#" (click)="vote('superman',username.value, comment.value)" class="red-button col s4 offset-s4 waves-effect waves-light btn right-align"><i
-                        class="mdi-action-thumb-up"></i> Superman</a>
-            </div>
+    <div class="col s12 m6 latest-vote">
+        <div class="card-panel status-panel center-align white-text">
+            <h6 class="card-title">Latest vote</h6>
+            <h5 *ng-if="latestVote">{{ latestVote.name }} voted for {{ latestVote.vote }} {{ latestVote.date | dateformat }}.</h5>
+            <h5 *ng-if="latestVote && latestVote.comment">
+                <small>„{{ latestVote.comment }}”</small>
+            </h5>
         </div>
+    </div>
+    <div class="col s12 m6"><div class="card-panel yellow darken-1 white-text center-align">
+        <h6>Not in the mood of voting?</h6>
+        <h5>Checkout the following pages</h5>
+        <a class="waves-effect waves-light btn grey darken-2" [router-link]="['/Statistics']"><i class="material-icons right">insert_chart</i>
+            Statistics</a>
+        <a class="waves-effect waves-light btn grey darken-2" [router-link]="['/Latest']"><i class="material-icons right">watch_later</i> Latest
+            votes</a></div>
+    </div>
+    <div class="col s12 m6">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5391093868358681"
+             data-ad-slot="5392980458"
+             data-ad-format="auto"></ins>
     </div>
 </div>

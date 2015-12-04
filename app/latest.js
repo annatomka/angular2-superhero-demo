@@ -30,7 +30,8 @@ var LatestComponent = (function () {
             directives: [router_1.RouterLink, angular2_1.CORE_DIRECTIVES],
             componentServices: [service_1.FirebaseService],
             templateUrl: "template/latest.html",
-            pipes: [datepipe_1.DateFormatPipe]
+            pipes: [datepipe_1.DateFormatPipe],
+            selector: 'latest-component'
         }), 
         __metadata('design:paramtypes', [])
     ], LatestComponent);

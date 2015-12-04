@@ -51,7 +51,7 @@ export class Statistics {
     }
 
     generateShareText(){
-        this.shareText = 'https://twitter.com/intent/tweet?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better? https://batmanvsuperman.firebaseapp.com';
+        this.shareText = 'http://twitter.com/share?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better?' + '&url='+window.location.origin;
     }
 
     updateValuesAndDraw(data){

@@ -39,7 +39,7 @@ var Statistics = (function () {
         this.resultText = (this.voteBatman > this.voteSuperman ? "Batman" : "Superman") + " is better right now.";
     };
     Statistics.prototype.generateShareText = function () {
-        this.shareText = 'https://twitter.com/intent/tweet?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better? https://batmanvsuperman.firebaseapp.com';
+        this.shareText = 'http://twitter.com/share?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better?' + '&url=' + window.location.origin;
     };
     Statistics.prototype.updateValuesAndDraw = function (data) {
         this.allVotes = this.voteBatman + this.voteSuperman;

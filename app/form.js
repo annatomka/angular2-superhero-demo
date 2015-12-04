@@ -15,6 +15,7 @@ var router_1 = require('angular2/router');
 var datepipe_1 = require('./datepipe');
 var SuperForm = (function () {
     function SuperForm(location) {
+        (adsbygoogle = window.adsbygoogle || []).push({});
         var self = this;
         this.dataRef = new service_1.FirebaseService().dataRef;
         this.location = location;
@@ -38,7 +39,8 @@ var SuperForm = (function () {
     };
     SuperForm.prototype.vote = function (superhero, username, comment) {
         var self = this;
-        if (username == "" || username == undefined) {
+        var usernameTrimmed = username.trim();
+        if (usernameTrimmed == "" || usernameTrimmed == undefined) {
             Materialize.toast("You can't vote without a username!", 4000);
             return;
         }
@@ -47,14 +49,14 @@ var SuperForm = (function () {
             snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key();
                 var childData = childSnapshot.val();
-                if (childData.name == username) {
+                if (childData.name == usernameTrimmed) {
                     Materialize.toast("You can't vote because you already voted for " + childData.vote + "!", 4000);
                     alreadyVoted = true;
                     return true;
                 }
             });
             if (alreadyVoted == false) {
-                self.addVote({ name: username, vote: superhero, date: new Date().getTime(), comment: comment });
+                self.addVote({ name: usernameTrimmed, vote: superhero, date: new Date().getTime(), comment: comment });
                 //Materialize.toast('You voted for&nbsp;<b> '+superhero+'</b>. Thanks!', 4000);
                 self.location.go('/statistics');
                 window.location.reload();
@@ -65,6 +67,7 @@ var SuperForm = (function () {
         angular2_1.Component({
             selector: 'super-form',
             templateUrl: "template/form.html",
+            directives: [router_1.RouterLink],
             componentServices: [service_1.FirebaseService, router_1.ROUTER_DIRECTIVES, angular2_1.CORE_DIRECTIVES],
             pipes: [datepipe_1.DateFormatPipe]
         }), 

@@ -7,7 +7,8 @@ import {DateFormatPipe} from './datepipe';
     directives: [RouterLink,CORE_DIRECTIVES],
     componentServices: [FirebaseService],
     templateUrl: "template/latest.html",
-    pipes: [DateFormatPipe]
+    pipes: [DateFormatPipe],
+    selector: 'latest-component'
 })
 export class LatestComponent {
     dataRef:Firebase;

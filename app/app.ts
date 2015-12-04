@@ -28,6 +28,7 @@ import {AboutComponent} from './about';
 ])
 class MyAppComponent {
     constructor() {
+
     }
 }
 

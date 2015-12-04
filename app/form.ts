@@ -2,13 +2,14 @@ import {Component, View, CORE_DIRECTIVES} from 'angular2/angular2';
 import {FirebaseService} from './service';
 import { ROUTER_DIRECTIVES,
     ROUTER_PROVIDERS,
-    RouteConfig,
+    RouteConfig,RouterLink,
     Location} from 'angular2/router';
 import {DateFormatPipe} from './datepipe';
 
 @Component({
     selector: 'super-form',
     templateUrl: "template/form.html",
+    directives: [RouterLink],
     componentServices: [FirebaseService,ROUTER_DIRECTIVES,CORE_DIRECTIVES],
     pipes: [DateFormatPipe]
 })
@@ -17,6 +18,7 @@ export class SuperForm {
     latestVote: any;
 
     constructor(location: Location) {
+            (adsbygoogle = window.adsbygoogle || []).push({});
         var self = this;
         this.dataRef = new FirebaseService().dataRef;
         this.location = location;
@@ -40,8 +42,9 @@ export class SuperForm {
 
     vote(superhero: string, username: string, comment: string) {
         var self = this;
+        var usernameTrimmed = username.trim();
 
-        if(username == "" || username == undefined) {
+        if(usernameTrimmed == "" || usernameTrimmed == undefined) {
             Materialize.toast("You can't vote without a username!", 4000);
             return;
         }
@@ -52,7 +55,7 @@ export class SuperForm {
             snapshot.forEach(function(childSnapshot){
                 var key = childSnapshot.key();
                 var childData = childSnapshot.val();
-                if(childData.name == username) {
+                if(childData.name == usernameTrimmed) {
                     Materialize.toast("You can't vote because you already voted for " + childData.vote + "!", 4000);
                     alreadyVoted = true;
                     return true;
@@ -60,7 +63,7 @@ export class SuperForm {
             });
 
             if(alreadyVoted == false ){
-                self.addVote({name: username, vote: superhero,date: new Date().getTime(), comment: comment });
+                self.addVote({name: usernameTrimmed, vote: superhero,date: new Date().getTime(), comment: comment });
                 //Materialize.toast('You voted for&nbsp;<b> '+superhero+'</b>. Thanks!', 4000);
                 self.location.go('/statistics');
                 window.location.reload();

@@ -78,8 +78,9 @@ small.vote-date{
      color: white !important;
 }
 
-.latest-vote h5{
-     font-weight: 300;
+
+h5{
+     font-weight: 300 !important;
 }
 
 .latest-vote h5 small {

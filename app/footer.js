@@ -10,14 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var angular2_1 = require('angular2/angular2');
+var router_1 = require('angular2/router');
 var FooterContent = (function () {
     function FooterContent() {
     }
     FooterContent = __decorate([
         angular2_1.Component({
-            selector: 'footer-content'
-        }),
-        angular2_1.View({
+            selector: 'footer-content',
+            directives: [router_1.RouterLink],
             templateUrl: "template/footer.html"
         }), 
         __metadata('design:paramtypes', [])

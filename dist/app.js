@@ -109,14 +109,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var angular2_1 = require('angular2/angular2');
+var router_1 = require('angular2/router');
 var FooterContent = (function () {
     function FooterContent() {
     }
     FooterContent = __decorate([
         angular2_1.Component({
-            selector: 'footer-content'
-        }),
-        angular2_1.View({
+            selector: 'footer-content',
+            directives: [router_1.RouterLink],
             templateUrl: "template/footer.html"
         }), 
         __metadata('design:paramtypes', [])
@@ -142,6 +142,7 @@ var router_1 = require('angular2/router');
 var datepipe_1 = require('./datepipe');
 var SuperForm = (function () {
     function SuperForm(location) {
+        (adsbygoogle = window.adsbygoogle || []).push({});
         var self = this;
         this.dataRef = new service_1.FirebaseService().dataRef;
         this.location = location;
@@ -165,7 +166,8 @@ var SuperForm = (function () {
     };
     SuperForm.prototype.vote = function (superhero, username, comment) {
         var self = this;
-        if (username == "" || username == undefined) {
+        var usernameTrimmed = username.trim();
+        if (usernameTrimmed == "" || usernameTrimmed == undefined) {
             Materialize.toast("You can't vote without a username!", 4000);
             return;
         }
@@ -174,14 +176,14 @@ var SuperForm = (function () {
             snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key();
                 var childData = childSnapshot.val();
-                if (childData.name == username) {
+                if (childData.name == usernameTrimmed) {
                     Materialize.toast("You can't vote because you already voted for " + childData.vote + "!", 4000);
                     alreadyVoted = true;
                     return true;
                 }
             });
             if (alreadyVoted == false) {
-                self.addVote({ name: username, vote: superhero, date: new Date().getTime(), comment: comment });
+                self.addVote({ name: usernameTrimmed, vote: superhero, date: new Date().getTime(), comment: comment });
                 //Materialize.toast('You voted for&nbsp;<b> '+superhero+'</b>. Thanks!', 4000);
                 self.location.go('/statistics');
                 window.location.reload();
@@ -192,6 +194,7 @@ var SuperForm = (function () {
         angular2_1.Component({
             selector: 'super-form',
             templateUrl: "template/form.html",
+            directives: [router_1.RouterLink],
             componentServices: [service_1.FirebaseService, router_1.ROUTER_DIRECTIVES, angular2_1.CORE_DIRECTIVES],
             pipes: [datepipe_1.DateFormatPipe]
         }), 
@@ -233,7 +236,8 @@ var LatestComponent = (function () {
             directives: [router_1.RouterLink, angular2_1.CORE_DIRECTIVES],
             componentServices: [service_1.FirebaseService],
             templateUrl: "template/latest.html",
-            pipes: [datepipe_1.DateFormatPipe]
+            pipes: [datepipe_1.DateFormatPipe],
+            selector: 'latest-component'
         }), 
         __metadata('design:paramtypes', [])
     ], LatestComponent);
@@ -293,6 +297,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var service_1 = require('./service');
+var latest_1 = require('./latest');
 var Statistics = (function () {
     function Statistics() {
         this.dataRef = new service_1.FirebaseService().dataRef;
@@ -303,12 +308,25 @@ var Statistics = (function () {
         this.dataRef.orderByChild('vote').equalTo('batman').on('value', function (data) {
             self.voteBatman = data.numChildren();
             self.updateValuesAndDraw(data);
+            self.generateResultText();
+            self.generateShareText();
         });
         this.dataRef.orderByChild('vote').equalTo('superman').on('value', function (data) {
             self.voteSuperman = data.numChildren();
             self.updateValuesAndDraw(data);
+            self.generateResultText();
+            self.generateShareText();
         });
     }
+    Statistics.prototype.generateResultText = function () {
+        if (this.voteBatman == this.voteSuperman) {
+            this.resultText = "Batman and Superman is equally awesome right now.";
+        }
+        this.resultText = (this.voteBatman > this.voteSuperman ? "Batman" : "Superman") + " is better right now.";
+    };
+    Statistics.prototype.generateShareText = function () {
+        this.shareText = 'https://twitter.com/intent/tweet?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better? https://batmanvsuperman.firebaseapp.com';
+    };
     Statistics.prototype.updateValuesAndDraw = function (data) {
         this.allVotes = this.voteBatman + this.voteSuperman;
         this.drawBarChart();
@@ -354,7 +372,7 @@ var Statistics = (function () {
         }),
         angular2_1.View({
             templateUrl: "template/statistics.html",
-            directives: [angular2_1.NgFor, angular2_1.NgIf]
+            directives: [angular2_1.NgFor, angular2_1.NgIf, latest_1.LatestComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], Statistics);

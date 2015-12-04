@@ -1,5 +1,6 @@
 import {Component, View,NgFor,NgIf} from 'angular2/angular2';
 import {FirebaseService} from './service';
+import {LatestComponent} from './latest';
 
 @Component({
     selector: 'statistics',
@@ -7,7 +8,7 @@ import {FirebaseService} from './service';
 })
 @View({
     templateUrl: "template/statistics.html",
-    directives: [NgFor,NgIf]
+    directives: [NgFor,NgIf,LatestComponent]
 })
 export class Statistics {
     dataRef:Firebase;
@@ -16,6 +17,8 @@ export class Statistics {
     allVotes: number;
     votes:Array<Object>;
     barChart: any;
+    resultText: String;
+    shareText: String;
 
     constructor() {
         this.dataRef = new FirebaseService().dataRef;
@@ -28,13 +31,29 @@ export class Statistics {
         this.dataRef.orderByChild('vote').equalTo('batman').on('value',function(data){
             self.voteBatman = data.numChildren();
             self.updateValuesAndDraw(data);
+            self.generateResultText();
+            self.generateShareText();
         });
 
         this.dataRef.orderByChild('vote').equalTo('superman').on('value',function(data){
             self.voteSuperman = data.numChildren();
             self.updateValuesAndDraw(data);
+            self.generateResultText();
+            self.generateShareText();
         });
     }
+
+    generateResultText(){
+        if(this.voteBatman == this.voteSuperman){
+            this.resultText = "Batman and Superman is equally awesome right now.";
+        }
+        this.resultText = (this.voteBatman>this.voteSuperman? "Batman": "Superman") + " is better right now.";
+    }
+
+    generateShareText(){
+        this.shareText = 'https://twitter.com/intent/tweet?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better? https://batmanvsuperman.firebaseapp.com';
+    }
+
     updateValuesAndDraw(data){
         this.allVotes = this.voteBatman + this.voteSuperman;
         this.drawBarChart();

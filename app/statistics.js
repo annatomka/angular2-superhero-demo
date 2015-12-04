@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var service_1 = require('./service');
+var latest_1 = require('./latest');
 var Statistics = (function () {
     function Statistics() {
         this.dataRef = new service_1.FirebaseService().dataRef;
@@ -21,12 +22,25 @@ var Statistics = (function () {
         this.dataRef.orderByChild('vote').equalTo('batman').on('value', function (data) {
             self.voteBatman = data.numChildren();
             self.updateValuesAndDraw(data);
+            self.generateResultText();
+            self.generateShareText();
         });
         this.dataRef.orderByChild('vote').equalTo('superman').on('value', function (data) {
             self.voteSuperman = data.numChildren();
             self.updateValuesAndDraw(data);
+            self.generateResultText();
+            self.generateShareText();
         });
     }
+    Statistics.prototype.generateResultText = function () {
+        if (this.voteBatman == this.voteSuperman) {
+            this.resultText = "Batman and Superman is equally awesome right now.";
+        }
+        this.resultText = (this.voteBatman > this.voteSuperman ? "Batman" : "Superman") + " is better right now.";
+    };
+    Statistics.prototype.generateShareText = function () {
+        this.shareText = 'https://twitter.com/intent/tweet?hashtags=batmanvsuperman,batman,superman,angular2,javascript,vote&text=' + this.resultText + ' Vote who is better? https://batmanvsuperman.firebaseapp.com';
+    };
     Statistics.prototype.updateValuesAndDraw = function (data) {
         this.allVotes = this.voteBatman + this.voteSuperman;
         this.drawBarChart();
@@ -72,7 +86,7 @@ var Statistics = (function () {
         }),
         angular2_1.View({
             templateUrl: "template/statistics.html",
-            directives: [angular2_1.NgFor, angular2_1.NgIf]
+            directives: [angular2_1.NgFor, angular2_1.NgIf, latest_1.LatestComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], Statistics);

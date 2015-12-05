@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var service_1 = require('./service');
-var ad_1 = require('./ad');
+var promoter_component_1 = require('./promoter.component');
 var router_1 = require('angular2/router');
 var datepipe_1 = require('./datepipe');
 var SuperForm = (function () {
@@ -67,7 +67,7 @@ var SuperForm = (function () {
         angular2_1.Component({
             selector: 'super-form',
             templateUrl: "template/form.html",
-            directives: [router_1.RouterLink, ad_1.AdsenseComponent],
+            directives: [router_1.RouterLink, promoter_component_1.PromoterComponent],
             componentServices: [service_1.FirebaseService, router_1.ROUTER_DIRECTIVES, angular2_1.CORE_DIRECTIVES],
             pipes: [datepipe_1.DateFormatPipe]
         }), 

@@ -1,6 +1,6 @@
 import {Component, View, CORE_DIRECTIVES} from 'angular2/angular2';
 import {FirebaseService} from './service';
-import {AdsenseComponent} from './ad';
+import {PromoterComponent} from './promoter.component';
 import { ROUTER_DIRECTIVES,
     ROUTER_PROVIDERS,
     RouteConfig,RouterLink,
@@ -10,7 +10,7 @@ import {DateFormatPipe} from './datepipe';
 @Component({
     selector: 'super-form',
     templateUrl: "template/form.html",
-    directives: [RouterLink, AdsenseComponent],
+    directives: [RouterLink, PromoterComponent],
     componentServices: [FirebaseService,ROUTER_DIRECTIVES,CORE_DIRECTIVES],
     pipes: [DateFormatPipe]
 })

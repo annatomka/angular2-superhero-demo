@@ -16,6 +16,8 @@
     "app/service.ts",
     "app/statistics.ts",
     "app/navigation.ts",
+    "app/promoter.component.ts",
+    "app/promoter.service.ts",
     "app/datepipe.ts",
     "node_modules/angular2/typings/tsd.d.ts"
   ]

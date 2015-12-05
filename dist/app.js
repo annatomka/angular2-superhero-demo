@@ -68,64 +68,6 @@ var AboutComponent = (function () {
 })();
 exports.AboutComponent = AboutComponent;
 //# sourceMappingURL=about.js.map
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-    switch (arguments.length) {
-        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-    }
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var angular2_1 = require('angular2/angular2');
-var adservice_1 = require('./adservice');
-var AdsenseComponent = (function () {
-    function AdsenseComponent() {
-        if (!adservice_1.AdService.isLoaded) {
-            var s = document.createElement('script');
-            s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-            document.body.appendChild(s);
-            adservice_1.AdService.isLoaded = true;
-        }
-        try {
-            if (!window.adsbygoogle) {
-                window.adsbygoogle = [];
-            }
-            window.adsbygoogle.push({});
-        }
-        catch (e) {
-            console.error(e); //TODO:
-        }
-    }
-    __decorate([
-        angular2_1.Input(), 
-        __metadata('design:type', String)
-    ], AdsenseComponent.prototype, "client");
-    __decorate([
-        angular2_1.Input(), 
-        __metadata('design:type', String)
-    ], AdsenseComponent.prototype, "slot");
-    AdsenseComponent = __decorate([
-        angular2_1.Component({
-            selector: 'adsense-component',
-            template: '<div><ins class="adsbygoogle" [attr.data-ad-client]="client" [attr.data-ad-slot]="slot" style="display:block;width: 100%;" data-ad-format="auto"></ins></div>'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AdsenseComponent);
-    return AdsenseComponent;
-})();
-exports.AdsenseComponent = AdsenseComponent;
-//# sourceMappingURL=ad.js.map
-var AdService = (function () {
-    function AdService() {
-        this.isLoaded = false;
-    }
-    return AdService;
-})();
-exports.AdService = AdService;
-//# sourceMappingURL=adservice.js.map
 //# sourceMappingURL=bundle.js.map
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
@@ -196,7 +138,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var service_1 = require('./service');
-var ad_1 = require('./ad');
+var promoter_component_1 = require('./promoter.component');
 var router_1 = require('angular2/router');
 var datepipe_1 = require('./datepipe');
 var SuperForm = (function () {
@@ -252,7 +194,7 @@ var SuperForm = (function () {
         angular2_1.Component({
             selector: 'super-form',
             templateUrl: "template/form.html",
-            directives: [router_1.RouterLink, ad_1.AdsenseComponent],
+            directives: [router_1.RouterLink, promoter_component_1.PromoterComponent],
             componentServices: [service_1.FirebaseService, router_1.ROUTER_DIRECTIVES, angular2_1.CORE_DIRECTIVES],
             pipes: [datepipe_1.DateFormatPipe]
         }), 
@@ -332,6 +274,64 @@ var Navigation = (function () {
 })();
 exports.Navigation = Navigation;
 //# sourceMappingURL=navigation.js.map
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+    switch (arguments.length) {
+        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+    }
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var angular2_1 = require('angular2/angular2');
+var promoter_service_1 = require('./promoter.service');
+var PromoterComponent = (function () {
+    function PromoterComponent() {
+        if (!promoter_service_1.PromoterService.isLoaded) {
+            var s = document.createElement('script');
+            s.src = "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+            document.body.appendChild(s);
+            promoter_service_1.PromoterService.isLoaded = true;
+        }
+        try {
+            if (!window.adsbygoogle) {
+                window.adsbygoogle = [];
+            }
+            window.adsbygoogle.push({});
+        }
+        catch (e) {
+            console.error(e); //TODO:
+        }
+    }
+    __decorate([
+        angular2_1.Input(), 
+        __metadata('design:type', String)
+    ], PromoterComponent.prototype, "client");
+    __decorate([
+        angular2_1.Input(), 
+        __metadata('design:type', String)
+    ], PromoterComponent.prototype, "slot");
+    PromoterComponent = __decorate([
+        angular2_1.Component({
+            selector: 'promoter-component',
+            template: '<div><ins class="adsbygoogle" [attr.data-ad-client]="client" [attr.data-ad-slot]="slot" style="display:block;width: 100%;" data-ad-format="auto"></ins></div>'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], PromoterComponent);
+    return PromoterComponent;
+})();
+exports.PromoterComponent = PromoterComponent;
+//# sourceMappingURL=promoter.component.js.map
+var PromoterService = (function () {
+    function PromoterService() {
+        this.isLoaded = false;
+    }
+    return PromoterService;
+})();
+exports.PromoterService = PromoterService;
+//# sourceMappingURL=promoter.service.js.map
 /// <reference path="../../typings/angular2/angular2.d.ts" />
 /// <reference path="typings/firebase/firebase.d.ts" />
 var FirebaseService = (function () {
@@ -356,7 +356,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var angular2_1 = require('angular2/angular2');
 var service_1 = require('./service');
 var latest_1 = require('./latest');
-var ad_1 = require('./ad');
+var promoter_component_1 = require('./promoter.component');
 var Statistics = (function () {
     function Statistics() {
         this.dataRef = new service_1.FirebaseService().dataRef;
@@ -431,7 +431,7 @@ var Statistics = (function () {
         }),
         angular2_1.View({
             templateUrl: "template/statistics.html",
-            directives: [angular2_1.NgFor, angular2_1.NgIf, latest_1.LatestComponent, ad_1.AdsenseComponent]
+            directives: [angular2_1.NgFor, angular2_1.NgIf, latest_1.LatestComponent, promoter_component_1.PromoterComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], Statistics);

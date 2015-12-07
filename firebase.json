@@ -7,7 +7,7 @@
     "**/node_modules/**"
   ],
   "redirects":[{
-    "source":"/*",
+    "source":"/**",
     "destination":"https://batmanvsupermanapp.com",
     "type": 301
   }]

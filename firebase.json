@@ -5,5 +5,10 @@
     "firebase.json",
     "**/.*",
     "**/node_modules/**"
-  ]
+  ],
+  "redirects":[{
+    "source":"/*",
+    "destination":"https://batmanvsupermanapp.com",
+    "type": 301
+  }]
 }

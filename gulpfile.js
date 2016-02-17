@@ -1,22 +1,34 @@
 var gulp = require('gulp');
-var concat = require('gulp-concat');
-
-gulp.task('app', function() {
-    return gulp.src(['app/app.js','app/*.js'])
-        .pipe(concat('app.js'))
-        .pipe(gulp.dest('dist/'));
+var utils_1 = require('./tools/utils');
+gulp.task('clean', utils_1.task('clean', 'all'));
+gulp.task('clean.dist', utils_1.task('clean', 'dist'));
+gulp.task('clean.test', utils_1.task('clean', 'test'));
+gulp.task('clean.tmp', utils_1.task('clean', 'tmp'));
+gulp.task('check.versions', utils_1.task('check.versions'));
+gulp.task('build.docs', utils_1.task('build.docs'));
+gulp.task('serve.docs', utils_1.task('serve.docs'));
+gulp.task('postinstall', function (done) {
+    return utils_1.runSequence('clean', 'npm', done);
 });
-
-gulp.task('lib', function() {
-    return gulp.src(['vendor/jquery-2.1.4.min.js','vendor/system.src.js','vendor/angular2.dev.js','vendor/router.dev.js','vendor/firebase.js','vendor/chartist.js','vendor/materialize.js', 'vendor/moment.js'])
-        .pipe(concat('lib.js'))
-        .pipe(gulp.dest('dist/'));
+gulp.task('build.dev', function (done) {
+    return utils_1.runSequence('clean.dist', 'tslint', 'build.assets.dev', 'build.js.dev', 'build.index.dev', done);
 });
-
-gulp.task('css',function(){
-    return gulp.src(['css/style.css', 'vendor/materialize.css', 'vendor/chartist.min.css' ])
-        .pipe(concat('app.css'))
-        .pipe(gulp.dest('dist/'));
+gulp.task('build.prod', function (done) {
+    return utils_1.runSequence('clean.dist', 'clean.tmp', 'tslint', 'build.assets.prod', 'build.html_css.prod', 'build.js.prod', 'build.bundles', 'build.index.prod', done);
 });
-
-gulp.task('default', ['app','lib', 'css']);
+gulp.task('build.dev.watch', function (done) {
+    return utils_1.runSequence('build.dev', 'watch.dev', done);
+});
+gulp.task('build.test.watch', function (done) {
+    return utils_1.runSequence('build.test', 'watch.test', done);
+});
+gulp.task('test', function (done) {
+    return utils_1.runSequence('clean.test', 'tslint', 'build.test', 'karma.start', done);
+});
+gulp.task('serve', function (done) {
+    return utils_1.runSequence('build.dev', 'server.start', 'watch.serve', done);
+});
+gulp.task('docs', function (done) {
+    return utils_1.runSequence('build.docs', 'serve.docs', done);
+});
+//# sourceMappingURL=gulpfile.js.map

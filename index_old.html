@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>Batman vs Superman Voting App</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple Angular 2 example made with Firebase. Vote for your favourite superhero, Batman vs Superman!">
+    <style>@import "dist/app.css";</style>
+    <script src="https://github.jspm.io/jmcriffey/bower-traceur-runtime@0.0.87/traceur-runtime.js"></script>
+    <script src="vendor/system.js"></script>
+    <script>System.config({ baseURL: '/', defaultJSExtensions: true});</script>
+
+    <!--<script src='dist/lib.js'></script>-->
+    <script src='vendor/jquery-2.1.4.min.js'></script>
+    <script src="vendor/angular2.dev.js"></script>
+    <script src="vendor/router.dev.js"></script>
+
+    <script src='vendor/firebase.js'></script>
+    <script src='vendor/chartist.js'></script>
+    <script src='vendor/moment.js'></script>
+    <script src='vendor/materialize.js'></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="grey lighten-4">
+<my-app></my-app>
+<script>
+    System.config(
+            {
+                packages: {'app': {defaultExtension: 'js'}}
+            });
+    System.import('app_old/app');
+
+</script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-71032763-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>
